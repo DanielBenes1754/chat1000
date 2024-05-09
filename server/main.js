@@ -13,8 +13,10 @@ io.on('connection', (socket) => {
 
   socket.on('chat_message', (msg) => {
     console.log('message: ' + msg.text);
-    socket.join(msg.room)
     socket.broadcast.to(msg.room).emit('chat_message', msg.text);
+  });
+  socket.on('room_name', (roomName) => {
+   socket.join(roomName);
   });
 });
 
